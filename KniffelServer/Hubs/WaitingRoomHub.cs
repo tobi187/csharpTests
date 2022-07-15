@@ -11,7 +11,7 @@ namespace KniffelServer.Hubs
 
         public async Task<string> CreateRoom()
         {
-            var roomNr = new Guid().ToString();
+            var roomNr = Guid.NewGuid().ToString();
             await Groups.AddToGroupAsync(Context.ConnectionId, roomNr);
             gameRooms.TryAdd(roomNr, new GameRoom { GroupName = roomNr, Player1 = Context.ConnectionId });
             await Clients.All.SendAsync("UpdateGameRooms", new
@@ -21,10 +21,12 @@ namespace KniffelServer.Hubs
             return roomNr;
         }
 
-        public async Task<List<string>> GetRooms()
+        public async Task GetRooms()
         {
-            var rooms = gameRooms.Where(x => !x.Value.IsRoomFull);
-            return rooms.Select(x => x.Key).ToList();
+            await Clients.Caller.SendAsync("UpdateGameRooms", new
+            {
+                groupList = gameRooms.Where(x => !x.Value.IsRoomFull).Select(x => x.Key).ToList()
+            });
         }
 
         public async Task<bool> JoinRoom(string roomNr)
@@ -34,15 +36,13 @@ namespace KniffelServer.Hubs
             {
                 await Groups.AddToGroupAsync(Context.ConnectionId, roomNr);
                 room.IsRoomFull = true;
+                room.Player2 = Context.ConnectionId;
                 await Clients.All.SendAsync("UpdateGameRooms", new
                 {
                     groupList = gameRooms.Where(x => !x.Value.IsRoomFull).Select(x => x.Key).ToList()
                 });
 
-                await Clients.Group(room.GroupName).SendAsync("GameFound", new
-                {
-                    roomNr = roomNr
-                });
+                await Clients.Group(room.GroupName).SendAsync("GameFound", roomNr);
                 return true;
             }
             return false;

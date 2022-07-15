@@ -37,6 +37,7 @@ namespace Kniffel
 
             connection.On<RoomModel>("UpdateGameRooms", (rooms) =>
             {
+                roomList.Items.Clear();
                 foreach (var r in rooms.groupList)
                 {
                     roomList.Items.Add(r);
@@ -49,7 +50,10 @@ namespace Kniffel
                 connectButton.Enabled = false;
                 await connection.StartAsync();
                 statusBox.Text = "Connected";
-                await connection.InvokeAsync("Join");
+                createGroup.Visible = true;
+                roomList.Visible = true;
+                joinGame.Visible = true;
+                await connection.InvokeAsync("GetRooms");
             }
             catch (Exception ex)
             {
@@ -60,7 +64,11 @@ namespace Kniffel
 
         private async void OnGameFound()
         {
-            Thread.Sleep(5000);
+            for (int i = 5; i >= 0; i--)
+            {
+                statusBox.Text = "Game starting in " + i;
+                await Task.Delay(1000);
+            }
 
             var gameForm = new Form1();
             gameForm.Show();
