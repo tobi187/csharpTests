@@ -65,6 +65,7 @@
             this.WurfCounter = new System.Windows.Forms.TextBox();
             this.label16 = new System.Windows.Forms.Label();
             this.KniffelBox = new System.Windows.Forms.TextBox();
+            this.enemyPoints = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // label1
@@ -171,7 +172,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(179, 79);
+            this.button1.Location = new System.Drawing.Point(239, 79);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 12;
@@ -181,7 +182,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(279, 79);
+            this.button2.Location = new System.Drawing.Point(339, 79);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 13;
@@ -191,7 +192,7 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(373, 79);
+            this.button3.Location = new System.Drawing.Point(433, 79);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(75, 23);
             this.button3.TabIndex = 14;
@@ -201,7 +202,7 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(465, 78);
+            this.button4.Location = new System.Drawing.Point(525, 78);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(75, 23);
             this.button4.TabIndex = 15;
@@ -211,7 +212,7 @@
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(560, 74);
+            this.button5.Location = new System.Drawing.Point(620, 78);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(75, 23);
             this.button5.TabIndex = 16;
@@ -221,7 +222,7 @@
             // 
             // wuerfelButton
             // 
-            this.wuerfelButton.Location = new System.Drawing.Point(334, 135);
+            this.wuerfelButton.Location = new System.Drawing.Point(394, 135);
             this.wuerfelButton.Name = "wuerfelButton";
             this.wuerfelButton.Size = new System.Drawing.Size(75, 23);
             this.wuerfelButton.TabIndex = 17;
@@ -304,6 +305,7 @@
             this.label10.Size = new System.Drawing.Size(102, 16);
             this.label10.TabIndex = 26;
             this.label10.Text = "falsche Eingabe!";
+            this.label10.Visible = false;
             // 
             // label11
             // 
@@ -379,7 +381,7 @@
             // 
             // WurfCounter
             // 
-            this.WurfCounter.Location = new System.Drawing.Point(279, 135);
+            this.WurfCounter.Location = new System.Drawing.Point(339, 135);
             this.WurfCounter.Name = "WurfCounter";
             this.WurfCounter.ReadOnly = true;
             this.WurfCounter.Size = new System.Drawing.Size(26, 23);
@@ -402,11 +404,21 @@
             this.KniffelBox.TabIndex = 38;
             this.KniffelBox.Click += new System.EventHandler(this.KniffelBox_Click);
             // 
+            // enemyPoints
+            // 
+            this.enemyPoints.BackColor = System.Drawing.Color.OrangeRed;
+            this.enemyPoints.Location = new System.Drawing.Point(658, 273);
+            this.enemyPoints.Name = "enemyPoints";
+            this.enemyPoints.ReadOnly = true;
+            this.enemyPoints.Size = new System.Drawing.Size(37, 23);
+            this.enemyPoints.TabIndex = 39;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 503);
+            this.Controls.Add(this.enemyPoints);
             this.Controls.Add(this.KniffelBox);
             this.Controls.Add(this.label16);
             this.Controls.Add(this.WurfCounter);
@@ -491,5 +503,6 @@
         private TextBox WurfCounter;
         private Label label16;
         private TextBox KniffelBox;
+        private TextBox enemyPoints;
     }
 }

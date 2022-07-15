@@ -8,7 +8,6 @@ namespace KniffelServer.Hubs
     {
         public static ConcurrentDictionary<string, GameRoom> gameRooms = new();
 
-
         public async Task<string> CreateRoom()
         {
             var roomNr = Guid.NewGuid().ToString();
@@ -42,7 +41,7 @@ namespace KniffelServer.Hubs
                     groupList = gameRooms.Where(x => !x.Value.IsRoomFull).Select(x => x.Key).ToList()
                 });
 
-                await Clients.Group(room.GroupName).SendAsync("GameFound", roomNr);
+                await Clients.Group(room.GroupName).SendAsync("GameFound", room.GroupName, room.Player2);
                 return true;
             }
             return false;
@@ -52,6 +51,22 @@ namespace KniffelServer.Hubs
         {
             gameRooms.TryRemove(roomName, out var room);
             return Groups.RemoveFromGroupAsync(Context.ConnectionId, roomName);
+        }
+
+        public async Task OnStart(string groupNumber)
+        {
+            await Clients.Caller.SendAsync("StartGameFirst", true);
+            await Clients.OthersInGroup(groupNumber).SendAsync("StartGameFirst", false);
+        }
+
+        public async Task OnThrow(string groupNr)
+        {
+
+        }
+
+        public async Task OnChange(string groupNr, string res)
+        {
+            await Clients.Group(groupNr).SendAsync("PlayerChange", res);
         }
     }
 }

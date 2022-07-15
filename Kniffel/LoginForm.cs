@@ -15,6 +15,7 @@ namespace Kniffel
     public partial class LoginForm : Form
     {
         HubConnection connection;
+        bool isFirstPlayer { get; set; }
         public LoginForm()
         {
             InitializeComponent();
@@ -29,10 +30,10 @@ namespace Kniffel
 
         private async void connectButton_Click(object sender, EventArgs e)
         {
-            connection.On<string>("GameFound", (roomNumber) =>
+            connection.On<string, string>("GameFound", (roomNumber, player2) =>
             {
                 statusBox.Text = "Game Found, Starting in 5 seconds";
-                OnGameFound();
+                OnGameFound(roomNumber);
             });
 
             connection.On<RoomModel>("UpdateGameRooms", (rooms) =>
@@ -62,7 +63,7 @@ namespace Kniffel
             }
         }
 
-        private async void OnGameFound()
+        private async void OnGameFound(string roomNuber)
         {
             for (int i = 5; i >= 0; i--)
             {
@@ -70,7 +71,7 @@ namespace Kniffel
                 await Task.Delay(1000);
             }
 
-            var gameForm = new Form1();
+            var gameForm = new Form1(roomNuber, isFirstPlayer, connection);
             gameForm.Show();
 
             await connection.DisposeAsync();
@@ -78,12 +79,14 @@ namespace Kniffel
 
         private async void createGroup_Click(object sender, EventArgs e)
         {
+            isFirstPlayer = true;
             await connection.InvokeAsync("CreateRoom");
             statusBox.Text = $"Waiting for second player ()";
         }
 
         private async void joinGame_Click(object sender, EventArgs e)
         {
+            isFirstPlayer = false;
             var room = (string)roomList.SelectedItem;
             await connection.InvokeAsync("JoinRoom", room);
         }

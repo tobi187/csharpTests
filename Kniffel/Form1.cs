@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.SignalR.Client;
+
 namespace Kniffel
 {
     public partial class Form1 : Form
@@ -5,15 +7,47 @@ namespace Kniffel
         public List<Button> wuerfelAnzeige { get; set; }
         public List<TextBox> zahlBoxen { get; set; }
         public List<TextBox> sonderBoxen { get; set; }
+        public List<dynamic> allControls { get; set; } = new List<dynamic>();
+        public bool isPlaying { get; set; }
+        public string groupNr;
+        HubConnection connection;
 
-
-
-        public Form1()
+        public Form1(string gNr, bool firstPlayer, HubConnection conn)
         {
+            isPlaying = firstPlayer;
+            connection = conn;
+            groupNr = gNr;
             InitializeComponent();
-            label10.Hide();
             WurfCounter.Text = "3";
+
+            MultiplayerConnection();
         }
+
+        public async void MultiplayerConnection()
+        {
+            connection.On<string>("PlayerChange", (count) =>
+            {
+                isPlaying = !isPlaying;
+                if (isPlaying)
+                {
+                    enemyPoints.Text = count;
+                    EnableAll();
+                }
+                else
+                    DisableAll();
+            });
+
+            connection.On<bool>("StartGameFirst", async (isFirst) =>
+            {
+                isPlaying = !isFirst;
+                await connection.InvokeAsync("OnChange", groupNr, "0");
+            });
+
+
+            if (isPlaying)
+                await connection.InvokeAsync("OnStart", groupNr);
+        }
+
         private void Form1_Load(object sender, EventArgs e)
         {
             wuerfelAnzeige = new List<Button>()
@@ -45,6 +79,9 @@ namespace Kniffel
                 textBox3,
                 textBox1
             };
+            sonderBoxen.ForEach(x => allControls.Add(x));
+            zahlBoxen.ForEach(x => allControls.Add(x));
+            wuerfelAnzeige.ForEach(x => allControls.Add(x));
         }
 
         private void wuerfelButton_Click(object sender, EventArgs e)
@@ -79,18 +116,19 @@ namespace Kniffel
                 .Sum();
 
             ((TextBox)sender).Text = sumOfOnes.ToString();
-            ((TextBox)sender).Enabled = false;
+            allControls.Remove((TextBox)sender);
+            
             gesamtBox.Text =
                 zahlBoxen
                 .Where(x => x.Text != "")
                 .Select(x => int.Parse(x.Text))
                 .Sum()
                 .ToString();
-            wuerfelButton.Enabled = true;
+            
             RenewWuerfel();
         }
 
-        private void RenewWuerfel()
+        private async void RenewWuerfel()
         {
             if (zahlBoxen.All(x => x.Enabled == false) && sonderBoxen.All(x => x.Enabled == false))
             {
@@ -111,6 +149,8 @@ namespace Kniffel
                 wuerfel.Enabled = true;
                 wuerfel.BackColor = Color.White;
             }
+
+            await connection.InvokeAsync("OnChange", groupNr, gesamtBox.Text);
         }
 
         private void fullHouseBox_Click(object sender, EventArgs e)
@@ -125,8 +165,7 @@ namespace Kniffel
             {
                 fullHouseBox.Text = "0";
             }
-            fullHouseBox.Enabled = false;
-            wuerfelButton.Enabled = true;
+            allControls.Remove(fullHouseBox);
         }
 
         async void button6_Click(object sender, EventArgs e)
@@ -174,7 +213,7 @@ namespace Kniffel
             {
                 tb.Text = "0";
             }
-            tb.Enabled = false;
+            allControls.Remove(tb);
             RenewWuerfel();
         }
 
@@ -207,7 +246,7 @@ namespace Kniffel
             {
                 textBox1.Text = "0";
             }
-            textBox1.Enabled = false;
+            allControls.Remove(textBox1);
             RenewWuerfel();
         }
 
@@ -221,7 +260,7 @@ namespace Kniffel
             {
                 textBox3.Text = "0";
             }
-            textBox3.Enabled = false;
+            allControls.Remove(textBox3);
             RenewWuerfel();
         }
 
@@ -247,7 +286,6 @@ namespace Kniffel
                 {
                     return true;
                 }
-
             }
             return false;
         }
@@ -259,8 +297,23 @@ namespace Kniffel
             else
                 KniffelBox.Text = "0";
 
+            allControls.Remove(KniffelBox);
             RenewWuerfel();
-            KniffelBox.Enabled = false;
+        }
+
+        private void DisableAll()
+        {
+            foreach (Control c in Controls)
+            {
+                c.Enabled = false;
+            }
+        }
+        private void EnableAll()
+        {
+            foreach (Control c in allControls)
+            {
+                c.Enabled = true;
+            }
         }
     }
 }
