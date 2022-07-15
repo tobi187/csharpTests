@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32014.148
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "leetocode", "leetocode\leetocode.csproj", "{403CFD86-E158-457A-9E01-C5E2F57FAA9F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BootstrapTest", "BootstrapTest\BootstrapTest.csproj", "{A30B236A-F43B-4AAC-B326-0DFE69359AB6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ColorCodeJson", "ColorCodeJson\ColorCodeJson.csproj", "{5AEF9947-7D1F-45BA-BF0B-3D64E1C2261F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kniffel", "Kniffel\Kniffel.csproj", "{C57FEA44-14DE-4B5C-A14B-9F7FAF3E9662}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AOC", "AOC\AOC.csproj", "{36C1F1B4-D3C3-401F-A96D-DD3C443EE599}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KniffelServer", "KniffelServer\KniffelServer.csproj", "{BC6E6AE2-203F-4C23-87C2-DCE98BE7EAA3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{403CFD86-E158-457A-9E01-C5E2F57FAA9F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{403CFD86-E158-457A-9E01-C5E2F57FAA9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{403CFD86-E158-457A-9E01-C5E2F57FAA9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{403CFD86-E158-457A-9E01-C5E2F57FAA9F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A30B236A-F43B-4AAC-B326-0DFE69359AB6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A30B236A-F43B-4AAC-B326-0DFE69359AB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A30B236A-F43B-4AAC-B326-0DFE69359AB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A30B236A-F43B-4AAC-B326-0DFE69359AB6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5AEF9947-7D1F-45BA-BF0B-3D64E1C2261F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5AEF9947-7D1F-45BA-BF0B-3D64E1C2261F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5AEF9947-7D1F-45BA-BF0B-3D64E1C2261F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5AEF9947-7D1F-45BA-BF0B-3D64E1C2261F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C57FEA44-14DE-4B5C-A14B-9F7FAF3E9662}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C57FEA44-14DE-4B5C-A14B-9F7FAF3E9662}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C57FEA44-14DE-4B5C-A14B-9F7FAF3E9662}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C57FEA44-14DE-4B5C-A14B-9F7FAF3E9662}.Release|Any CPU.Build.0 = Release|Any CPU
+		{36C1F1B4-D3C3-401F-A96D-DD3C443EE599}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36C1F1B4-D3C3-401F-A96D-DD3C443EE599}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36C1F1B4-D3C3-401F-A96D-DD3C443EE599}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36C1F1B4-D3C3-401F-A96D-DD3C443EE599}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BC6E6AE2-203F-4C23-87C2-DCE98BE7EAA3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC6E6AE2-203F-4C23-87C2-DCE98BE7EAA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC6E6AE2-203F-4C23-87C2-DCE98BE7EAA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC6E6AE2-203F-4C23-87C2-DCE98BE7EAA3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {47381FDF-29DD-4B36-9EBE-6506C5BE18B3}
+	EndGlobalSection
+EndGlobal
