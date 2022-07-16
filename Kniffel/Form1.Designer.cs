@@ -66,6 +66,10 @@
             this.label16 = new System.Windows.Forms.Label();
             this.KniffelBox = new System.Windows.Forms.TextBox();
             this.enemyPoints = new System.Windows.Forms.TextBox();
+            this.countSonder = new System.Windows.Forms.TextBox();
+            this.countAll = new System.Windows.Forms.TextBox();
+            this.enemySonder = new System.Windows.Forms.TextBox();
+            this.enemyNumber = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // label1
@@ -253,7 +257,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(59, 371);
+            this.label8.Location = new System.Drawing.Point(50, 334);
             this.label8.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(60, 15);
@@ -262,7 +266,7 @@
             // 
             // fullHouseBox
             // 
-            this.fullHouseBox.Location = new System.Drawing.Point(126, 363);
+            this.fullHouseBox.Location = new System.Drawing.Point(117, 326);
             this.fullHouseBox.Margin = new System.Windows.Forms.Padding(2);
             this.fullHouseBox.Name = "fullHouseBox";
             this.fullHouseBox.Size = new System.Drawing.Size(40, 23);
@@ -310,7 +314,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(50, 407);
+            this.label11.Location = new System.Drawing.Point(41, 370);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(69, 15);
             this.label11.TabIndex = 27;
@@ -318,7 +322,7 @@
             // 
             // dreierpasch_box
             // 
-            this.dreierpasch_box.Location = new System.Drawing.Point(126, 399);
+            this.dreierpasch_box.Location = new System.Drawing.Point(117, 362);
             this.dreierpasch_box.Margin = new System.Windows.Forms.Padding(2);
             this.dreierpasch_box.Name = "dreierpasch_box";
             this.dreierpasch_box.Size = new System.Drawing.Size(40, 23);
@@ -328,7 +332,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(51, 439);
+            this.label12.Location = new System.Drawing.Point(42, 402);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(68, 15);
             this.label12.TabIndex = 29;
@@ -336,7 +340,7 @@
             // 
             // viererpasch_box
             // 
-            this.viererpasch_box.Location = new System.Drawing.Point(126, 431);
+            this.viererpasch_box.Location = new System.Drawing.Point(117, 394);
             this.viererpasch_box.Margin = new System.Windows.Forms.Padding(2);
             this.viererpasch_box.Name = "viererpasch_box";
             this.viererpasch_box.Size = new System.Drawing.Size(40, 23);
@@ -346,7 +350,7 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(278, 371);
+            this.label13.Location = new System.Drawing.Point(269, 334);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(74, 15);
             this.label13.TabIndex = 31;
@@ -354,7 +358,7 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(357, 363);
+            this.textBox1.Location = new System.Drawing.Point(348, 326);
             this.textBox1.Margin = new System.Windows.Forms.Padding(2);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(40, 23);
@@ -364,7 +368,7 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(278, 407);
+            this.label14.Location = new System.Drawing.Point(269, 370);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(74, 15);
             this.label14.TabIndex = 33;
@@ -372,7 +376,7 @@
             // 
             // textBox3
             // 
-            this.textBox3.Location = new System.Drawing.Point(357, 401);
+            this.textBox3.Location = new System.Drawing.Point(348, 364);
             this.textBox3.Margin = new System.Windows.Forms.Padding(2);
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(40, 23);
@@ -390,7 +394,7 @@
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(279, 439);
+            this.label16.Location = new System.Drawing.Point(270, 402);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(41, 15);
             this.label16.TabIndex = 37;
@@ -398,7 +402,7 @@
             // 
             // KniffelBox
             // 
-            this.KniffelBox.Location = new System.Drawing.Point(357, 436);
+            this.KniffelBox.Location = new System.Drawing.Point(348, 399);
             this.KniffelBox.Name = "KniffelBox";
             this.KniffelBox.Size = new System.Drawing.Size(40, 23);
             this.KniffelBox.TabIndex = 38;
@@ -413,11 +417,43 @@
             this.enemyPoints.Size = new System.Drawing.Size(37, 23);
             this.enemyPoints.TabIndex = 39;
             // 
+            // countSonder
+            // 
+            this.countSonder.Location = new System.Drawing.Point(117, 445);
+            this.countSonder.Name = "countSonder";
+            this.countSonder.Size = new System.Drawing.Size(41, 23);
+            this.countSonder.TabIndex = 40;
+            // 
+            // countAll
+            // 
+            this.countAll.Location = new System.Drawing.Point(348, 444);
+            this.countAll.Name = "countAll";
+            this.countAll.Size = new System.Drawing.Size(40, 23);
+            this.countAll.TabIndex = 41;
+            // 
+            // enemySonder
+            // 
+            this.enemySonder.Location = new System.Drawing.Point(658, 243);
+            this.enemySonder.Name = "enemySonder";
+            this.enemySonder.Size = new System.Drawing.Size(37, 23);
+            this.enemySonder.TabIndex = 42;
+            // 
+            // enemyNumber
+            // 
+            this.enemyNumber.Location = new System.Drawing.Point(658, 214);
+            this.enemyNumber.Name = "enemyNumber";
+            this.enemyNumber.Size = new System.Drawing.Size(37, 23);
+            this.enemyNumber.TabIndex = 43;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 503);
+            this.Controls.Add(this.enemyNumber);
+            this.Controls.Add(this.enemySonder);
+            this.Controls.Add(this.countAll);
+            this.Controls.Add(this.countSonder);
             this.Controls.Add(this.enemyPoints);
             this.Controls.Add(this.KniffelBox);
             this.Controls.Add(this.label16);
@@ -504,5 +540,9 @@
         private Label label16;
         private TextBox KniffelBox;
         private TextBox enemyPoints;
+        private TextBox countSonder;
+        private TextBox countAll;
+        private TextBox enemySonder;
+        private TextBox enemyNumber;
     }
 }

@@ -64,9 +64,9 @@ namespace KniffelServer.Hubs
 
         }
 
-        public async Task OnChange(string groupNr, string res)
+        public async Task OnChange(string groupNr, string res, string sonder, string nums)
         {
-            await Clients.Group(groupNr).SendAsync("PlayerChange", res);
+            await Clients.Group(groupNr).SendAsync("PlayerChange", res, sonder, nums);
         }
     }
 }

@@ -25,12 +25,14 @@ namespace Kniffel
 
         public async void MultiplayerConnection()
         {
-            connection.On<string>("PlayerChange", (count) =>
+            connection.On<string, string, string>("PlayerChange", (all, sonder, num) =>
             {
                 isPlaying = !isPlaying;
                 if (isPlaying)
                 {
-                    enemyPoints.Text = count;
+                    enemyPoints.Text = all;
+                    enemySonder.Text = sonder;
+                    enemyNumber.Text = num;
                     EnableAll();
                 }
                 else
@@ -40,7 +42,7 @@ namespace Kniffel
             connection.On<bool>("StartGameFirst", async (isFirst) =>
             {
                 isPlaying = !isFirst;
-                await connection.InvokeAsync("OnChange", groupNr, "0");
+                await connection.InvokeAsync("OnChange", groupNr, "0", "0", "0");
             });
 
 
@@ -119,12 +121,7 @@ namespace Kniffel
             ((TextBox)sender).Text = sumOfOnes.ToString();
             allControls.Remove((TextBox)sender);
             
-            gesamtBox.Text =
-                zahlBoxen
-                .Where(x => x.Text != "")
-                .Select(x => int.Parse(x.Text))
-                .Sum()
-                .ToString();
+            
             
             RenewWuerfel();
         }
@@ -151,7 +148,9 @@ namespace Kniffel
                 wuerfel.BackColor = Color.White;
             }
 
-            await connection.InvokeAsync("OnChange", groupNr, gesamtBox.Text);
+            (string all, string sonder, string number)  = CalcNumbers(); 
+
+            await connection.InvokeAsync("OnChange", groupNr, all, sonder, number);
         }
 
         private void fullHouseBox_Click(object sender, EventArgs e)
@@ -300,6 +299,27 @@ namespace Kniffel
 
             allControls.Remove(KniffelBox);
             RenewWuerfel();
+        }
+
+        private (string, string, string) CalcNumbers()
+        {
+            var numbers =
+                zahlBoxen
+                .Where(x => x.Text != "")
+                .Select(x => int.Parse(x.Text))
+                .Sum()
+                .ToString();
+            var sonder =
+                sonderBoxen
+                .Where(x => x.Text != "")
+                .Select(x => int.Parse(x.Text))
+                .Sum()
+                .ToString();
+            var gesamt = numbers + sonder;
+            gesamtBox.Text = numbers;
+            countSonder.Text = sonder;
+            countAll.Text = gesamt;
+            return (gesamt, sonder, numbers);
         }
 
         private void DisableAll()
