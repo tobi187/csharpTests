@@ -82,6 +82,7 @@ namespace Kniffel
             sonderBoxen.ForEach(x => allControls.Add(x));
             zahlBoxen.ForEach(x => allControls.Add(x));
             wuerfelAnzeige.ForEach(x => allControls.Add(x));
+            allControls.Add(wuerfelButton);
         }
 
         private void wuerfelButton_Click(object sender, EventArgs e)
@@ -141,7 +142,7 @@ namespace Kniffel
                     sonderBoxen[i].Enabled = true;
                 }
             }
-            wuerfelButton.Enabled = true;
+
             WurfCounter.Text = "3";
             foreach (var wuerfel in wuerfelAnzeige)
             {

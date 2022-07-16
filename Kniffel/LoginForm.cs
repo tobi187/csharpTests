@@ -73,8 +73,6 @@ namespace Kniffel
 
             var gameForm = new Form1(roomNuber, isFirstPlayer, connection);
             gameForm.Show();
-
-            await connection.DisposeAsync();
         }
 
         private async void createGroup_Click(object sender, EventArgs e)
