@@ -34,14 +34,14 @@
             this.createGroup = new System.Windows.Forms.Button();
             this.joinGame = new System.Windows.Forms.Button();
             this.roomList = new System.Windows.Forms.ListBox();
+            this.groupName = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // connectButton
             // 
-            this.connectButton.Location = new System.Drawing.Point(373, 177);
-            this.connectButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.connectButton.Location = new System.Drawing.Point(326, 133);
             this.connectButton.Name = "connectButton";
-            this.connectButton.Size = new System.Drawing.Size(166, 59);
+            this.connectButton.Size = new System.Drawing.Size(145, 44);
             this.connectButton.TabIndex = 0;
             this.connectButton.Text = "Connect";
             this.connectButton.UseVisualStyleBackColor = true;
@@ -51,9 +51,9 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Sitka Banner", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label1.Location = new System.Drawing.Point(290, 76);
+            this.label1.Location = new System.Drawing.Point(254, 57);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(88, 39);
+            this.label1.Size = new System.Drawing.Size(68, 30);
             this.label1.TabIndex = 1;
             this.label1.Text = "Status:";
             // 
@@ -61,18 +61,17 @@
             // 
             this.statusBox.AutoSize = true;
             this.statusBox.Font = new System.Drawing.Font("Yu Gothic", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.statusBox.Location = new System.Drawing.Point(405, 80);
+            this.statusBox.Location = new System.Drawing.Point(354, 60);
             this.statusBox.Name = "statusBox";
-            this.statusBox.Size = new System.Drawing.Size(203, 35);
+            this.statusBox.Size = new System.Drawing.Size(157, 27);
             this.statusBox.TabIndex = 2;
             this.statusBox.Text = "Not Connected";
             // 
             // createGroup
             // 
-            this.createGroup.Location = new System.Drawing.Point(75, 351);
-            this.createGroup.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.createGroup.Location = new System.Drawing.Point(71, 278);
             this.createGroup.Name = "createGroup";
-            this.createGroup.Size = new System.Drawing.Size(136, 47);
+            this.createGroup.Size = new System.Drawing.Size(119, 35);
             this.createGroup.TabIndex = 3;
             this.createGroup.Text = "Create Goup";
             this.createGroup.UseVisualStyleBackColor = true;
@@ -81,10 +80,9 @@
             // 
             // joinGame
             // 
-            this.joinGame.Location = new System.Drawing.Point(406, 472);
-            this.joinGame.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.joinGame.Location = new System.Drawing.Point(355, 354);
             this.joinGame.Name = "joinGame";
-            this.joinGame.Size = new System.Drawing.Size(86, 31);
+            this.joinGame.Size = new System.Drawing.Size(75, 23);
             this.joinGame.TabIndex = 5;
             this.joinGame.Text = "Join";
             this.joinGame.UseVisualStyleBackColor = true;
@@ -94,27 +92,37 @@
             // roomList
             // 
             this.roomList.FormattingEnabled = true;
-            this.roomList.ItemHeight = 20;
-            this.roomList.Location = new System.Drawing.Point(301, 297);
+            this.roomList.ItemHeight = 15;
+            this.roomList.Location = new System.Drawing.Point(263, 223);
+            this.roomList.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.roomList.Name = "roomList";
-            this.roomList.Size = new System.Drawing.Size(307, 144);
+            this.roomList.Size = new System.Drawing.Size(269, 109);
             this.roomList.TabIndex = 6;
             this.roomList.Visible = false;
             // 
+            // groupName
+            // 
+            this.groupName.Location = new System.Drawing.Point(71, 239);
+            this.groupName.Name = "groupName";
+            this.groupName.Size = new System.Drawing.Size(119, 23);
+            this.groupName.TabIndex = 7;
+            this.groupName.Visible = false;
+            // 
             // LoginForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(914, 600);
+            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.groupName);
             this.Controls.Add(this.roomList);
             this.Controls.Add(this.joinGame);
             this.Controls.Add(this.createGroup);
             this.Controls.Add(this.statusBox);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.connectButton);
-            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "LoginForm";
             this.Text = "LoginForm";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.LoginForm_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -128,5 +136,6 @@
         private Button createGroup;
         private Button joinGame;
         private ListBox roomList;
+        private TextBox groupName;
     }
 }

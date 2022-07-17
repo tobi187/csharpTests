@@ -25,7 +25,6 @@ namespace Kniffel
                 .WithUrl("https://localhost:7162/findGame")
                 .WithAutomaticReconnect()
                 .Build();
-
         }
 
         private async void connectButton_Click(object sender, EventArgs e)
@@ -54,6 +53,7 @@ namespace Kniffel
                 createGroup.Visible = true;
                 roomList.Visible = true;
                 joinGame.Visible = true;
+                groupName.Visible = true;
                 await connection.InvokeAsync("GetRooms");
             }
             catch (Exception ex)
@@ -65,21 +65,38 @@ namespace Kniffel
 
         private async void OnGameFound(string roomNuber)
         {
-            for (int i = 5; i >= 0; i--)
+            joinGame.Enabled = false;
+            createGroup.Enabled = false;
+            for (int i = 3; i >= 0; i--)
             {
                 statusBox.Text = "Game starting in " + i;
                 await Task.Delay(1000);
             }
 
             var gameForm = new Form1(roomNuber, isFirstPlayer, connection);
+            gameForm.FormClosed += async delegate
+            {
+                await connection.InvokeAsync("LeaveRoom", roomNuber);
+                statusBox.Text = "Room deleted";
+                joinGame.Enabled = true;
+                createGroup.Enabled = true;
+                Show();
+            };
             gameForm.Show();
+            Hide();
         }
-
+        
         private async void createGroup_Click(object sender, EventArgs e)
         {
+            var name = 
+                groupName.Text.Trim() == "" 
+                ? "Unnamed-" + Guid.NewGuid().ToString() 
+                : groupName.Text.Trim();
+
             isFirstPlayer = true;
-            await connection.InvokeAsync("CreateRoom");
-            statusBox.Text = $"Waiting for second player ()";
+            await connection.InvokeAsync("CreateRoom", name);
+            statusBox.Text = $"Waiting for second player ({name})";
+            groupName.Text = "";
         }
 
         private async void joinGame_Click(object sender, EventArgs e)
@@ -87,6 +104,11 @@ namespace Kniffel
             isFirstPlayer = false;
             var room = (string)roomList.SelectedItem;
             await connection.InvokeAsync("JoinRoom", room);
+        }
+
+        private async void LoginForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            await connection.DisposeAsync();
         }
     }
 }

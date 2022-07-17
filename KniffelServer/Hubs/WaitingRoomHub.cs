@@ -8,14 +8,16 @@ namespace KniffelServer.Hubs
     {
         public static ConcurrentDictionary<string, GameRoom> gameRooms = new();
 
-        public async Task<string> CreateRoom()
+        public async Task<string> CreateRoom(string name)
         {
+            if (gameRooms.Values.Any(x => x.RoomName == name))
+                return "Name already in Use";
             var roomNr = Guid.NewGuid().ToString();
             await Groups.AddToGroupAsync(Context.ConnectionId, roomNr);
-            gameRooms.TryAdd(roomNr, new GameRoom { GroupName = roomNr, Player1 = Context.ConnectionId });
+            gameRooms.TryAdd(roomNr, new GameRoom { RoomName = name, GroupName = roomNr, Player1 = Context.ConnectionId });
             await Clients.All.SendAsync("UpdateGameRooms", new
             {
-                groupList = gameRooms.Where(x => !x.Value.IsRoomFull).Select(x => x.Key).ToList()
+                groupList = gameRooms.Where(x => !x.Value.IsRoomFull).Select(x => x.Value.RoomName).ToList()
             });
             return roomNr;
         }
@@ -24,21 +26,21 @@ namespace KniffelServer.Hubs
         {
             await Clients.Caller.SendAsync("UpdateGameRooms", new
             {
-                groupList = gameRooms.Where(x => !x.Value.IsRoomFull).Select(x => x.Key).ToList()
+                groupList = gameRooms.Where(x => !x.Value.IsRoomFull).Select(x => x.Value.RoomName).ToList()
             });
         }
 
-        public async Task<bool> JoinRoom(string roomNr)
+        public async Task<bool> JoinRoom(string roomName)
         {
-            var doesRoomExits = gameRooms.TryGetValue(roomNr, out var room);
-            if (doesRoomExits && !room.IsRoomFull)
+            var room = gameRooms.SingleOrDefault(x => x.Value.RoomName == roomName).Value;
+            if (room != null && !room.IsRoomFull)
             {
-                await Groups.AddToGroupAsync(Context.ConnectionId, roomNr);
+                await Groups.AddToGroupAsync(Context.ConnectionId, room.GroupName);
                 room.IsRoomFull = true;
                 room.Player2 = Context.ConnectionId;
                 await Clients.All.SendAsync("UpdateGameRooms", new
                 {
-                    groupList = gameRooms.Where(x => !x.Value.IsRoomFull).Select(x => x.Key).ToList()
+                    groupList = gameRooms.Where(x => !x.Value.IsRoomFull).Select(x => x.Value.RoomName).ToList()
                 });
 
                 await Clients.Group(room.GroupName).SendAsync("GameFound", room.GroupName, room.Player2);
@@ -47,10 +49,13 @@ namespace KniffelServer.Hubs
             return false;
         }
 
-        public Task LeaveRoom(string roomName)
+        public async Task LeaveRoom(string roomName)
         {
-            gameRooms.TryRemove(roomName, out var room);
-            return Groups.RemoveFromGroupAsync(Context.ConnectionId, roomName);
+            if (!gameRooms.TryRemove(roomName, out var room))
+                return;
+            await Clients.OthersInGroup(roomName).SendAsync("PlayerLeft");
+            await Groups.RemoveFromGroupAsync(room.Player1, roomName);
+            await Groups.RemoveFromGroupAsync(room.Player2, roomName);
         }
 
         public async Task OnStart(string groupNumber)

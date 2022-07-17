@@ -182,7 +182,7 @@
             this.button1.TabIndex = 12;
             this.button1.Text = "button1";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.LockWuerfel);
+            this.button1.Click += new System.EventHandler(this.SelectWuerfel);
             // 
             // button2
             // 
@@ -192,7 +192,7 @@
             this.button2.TabIndex = 13;
             this.button2.Text = "button2";
             this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.LockWuerfel);
+            this.button2.Click += new System.EventHandler(this.SelectWuerfel);
             // 
             // button3
             // 
@@ -202,7 +202,7 @@
             this.button3.TabIndex = 14;
             this.button3.Text = "button3";
             this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.LockWuerfel);
+            this.button3.Click += new System.EventHandler(this.SelectWuerfel);
             // 
             // button4
             // 
@@ -212,7 +212,7 @@
             this.button4.TabIndex = 15;
             this.button4.Text = "button4";
             this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.LockWuerfel);
+            this.button4.Click += new System.EventHandler(this.SelectWuerfel);
             // 
             // button5
             // 
@@ -222,7 +222,7 @@
             this.button5.TabIndex = 16;
             this.button5.Text = "button5";
             this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.LockWuerfel);
+            this.button5.Click += new System.EventHandler(this.SelectWuerfel);
             // 
             // wuerfelButton
             // 
@@ -419,13 +419,15 @@
             // 
             // countSonder
             // 
-            this.countSonder.Location = new System.Drawing.Point(117, 445);
+            this.countSonder.BackColor = System.Drawing.Color.Orange;
+            this.countSonder.Location = new System.Drawing.Point(122, 445);
             this.countSonder.Name = "countSonder";
-            this.countSonder.Size = new System.Drawing.Size(41, 23);
+            this.countSonder.Size = new System.Drawing.Size(35, 23);
             this.countSonder.TabIndex = 40;
             // 
             // countAll
             // 
+            this.countAll.BackColor = System.Drawing.Color.Gold;
             this.countAll.Location = new System.Drawing.Point(348, 444);
             this.countAll.Name = "countAll";
             this.countAll.Size = new System.Drawing.Size(40, 23);
@@ -433,6 +435,7 @@
             // 
             // enemySonder
             // 
+            this.enemySonder.BackColor = System.Drawing.Color.Orange;
             this.enemySonder.Location = new System.Drawing.Point(658, 243);
             this.enemySonder.Name = "enemySonder";
             this.enemySonder.Size = new System.Drawing.Size(37, 23);
@@ -440,6 +443,7 @@
             // 
             // enemyNumber
             // 
+            this.enemyNumber.BackColor = System.Drawing.Color.Orange;
             this.enemyNumber.Location = new System.Drawing.Point(658, 214);
             this.enemyNumber.Name = "enemyNumber";
             this.enemyNumber.Size = new System.Drawing.Size(37, 23);

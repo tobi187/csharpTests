@@ -39,6 +39,10 @@ namespace Kniffel
                     DisableAll();
             });
 
+            connection.On("PlayerLeft", () => { 
+                Close();
+            });
+
             connection.On<bool>("StartGameFirst", async (isFirst) =>
             {
                 isPlaying = !isFirst;
@@ -92,6 +96,8 @@ namespace Kniffel
             if (WurfCounter.Text == "1")
                 wuerfelButton.Enabled = false;
 
+            LockWuerfel();
+
             WurfCounter.Text = (int.Parse(WurfCounter.Text) - 1).ToString();
 
             var r = new Random();
@@ -102,11 +108,22 @@ namespace Kniffel
             }
         }
 
-        private void LockWuerfel(object sender, EventArgs e)
+        private void LockWuerfel()
+        {
+            foreach (var wuerfel in wuerfelAnzeige)
+            {
+                if (wuerfel.BackColor == Color.Green)
+                    wuerfel.Enabled = false;
+            }
+        }
+
+        private void SelectWuerfel(object sender, EventArgs e)
         {
             var button = (Button)sender;
-            button.Enabled = false;
-            button.BackColor = Color.Green;
+            if (button.BackColor == Color.Green || button.Text == "0")
+                button.BackColor = Color.White;
+            else
+                button.BackColor = Color.Green;
         }
 
         public void BoxClickEvent(object sender, EventArgs e)
@@ -120,8 +137,6 @@ namespace Kniffel
 
             ((TextBox)sender).Text = sumOfOnes.ToString();
             allControls.Remove((TextBox)sender);
-            
-            
             
             RenewWuerfel();
         }
@@ -307,19 +322,17 @@ namespace Kniffel
                 zahlBoxen
                 .Where(x => x.Text != "")
                 .Select(x => int.Parse(x.Text))
-                .Sum()
-                .ToString();
+                .Sum();
             var sonder =
                 sonderBoxen
                 .Where(x => x.Text != "")
                 .Select(x => int.Parse(x.Text))
-                .Sum()
-                .ToString();
-            var gesamt = numbers + sonder;
-            gesamtBox.Text = numbers;
-            countSonder.Text = sonder;
+                .Sum();
+            var gesamt = (numbers + sonder).ToString();
+            gesamtBox.Text = numbers.ToString();
+            countSonder.Text = sonder.ToString();
             countAll.Text = gesamt;
-            return (gesamt, sonder, numbers);
+            return (gesamt, sonder.ToString(), numbers.ToString());
         }
 
         private void DisableAll()
